@@ -143,6 +143,25 @@ public class Nopalindrom {
         }
         return ret;
     }
+    
+    public static char[][] flipHorizontal(char[][] theArray) {
+        for(int i = 0; i < (theArray.length / 2); i++) {
+            char[] temp = theArray[i];
+            theArray[i] = theArray[theArray.length - i - 1];
+            theArray[theArray.length - i - 1] = temp;
+        }
+        return theArray;
+    }
+    
+    public static char[][] mirror(int width, int height, char[][] in) {
+        char[][] out = new char[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                out[i][width - j - 1] = in[i][j];
+            }
+        }
+        return out;
+    }
         
     public static void main(String[] args){
         try{
@@ -233,14 +252,71 @@ public class Nopalindrom {
                 
                 for (int i=0;i<downright.length;i++){
                     char[] theGrid = downright[i].toCharArray();
-                    System.out.println("grid= " + String.valueOf(theGrid));
+                    //System.out.println("grid= " + String.valueOf(theGrid));
                     int rtemp = StringMatch(theGrid,theWord);
                     while (rtemp!=-1) {
                         rtemp = StringMatch(theGrid,theWord);
                         if (rtemp==-1)
                             break;
                         theGrid = String.valueOf(theGrid).substring(rtemp+1).toCharArray();
-                        System.out.println("grid= " + String.valueOf(theGrid));
+                        //System.out.println("grid= " + String.valueOf(theGrid));
+                        counter++;
+                    } 
+                }
+                
+                char[][] upright = flipHorizontal(grid);
+                
+                grids = convertToStringArray(upright);
+                downright = getMatrixDiagonal(grids);
+                
+                for (int i=0;i<downright.length;i++){
+                    char[] theGrid = downright[i].toCharArray();
+                    //System.out.println("grid= " + String.valueOf(theGrid));
+                    int rtemp = StringMatch(theGrid,theWord);
+                    while (rtemp!=-1) {
+                        rtemp = StringMatch(theGrid,theWord);
+                        if (rtemp==-1)
+                            break;
+                        theGrid = String.valueOf(theGrid).substring(rtemp+1).toCharArray();
+                        //System.out.println("grid= " + String.valueOf(theGrid));
+                        counter++;
+                    } 
+                }
+                
+                char[][] downleft = mirror(grid[0].length,grid.length,grid);
+                
+                grids = convertToStringArray(downleft);
+                downright = getMatrixDiagonal(grids);
+                
+                for (int i=0;i<downright.length;i++){
+                    char[] theGrid = downright[i].toCharArray();
+                    //System.out.println("grid= " + String.valueOf(theGrid));
+                    int rtemp = StringMatch(theGrid,theWord);
+                    while (rtemp!=-1) {
+                        rtemp = StringMatch(theGrid,theWord);
+                        if (rtemp==-1)
+                            break;
+                        theGrid = String.valueOf(theGrid).substring(rtemp+1).toCharArray();
+                        //System.out.println("grid= " + String.valueOf(theGrid));
+                        counter++;
+                    } 
+                }
+                
+                char[][] upleft = flipHorizontal(downleft);
+                
+                grids = convertToStringArray(upleft);
+                downright = getMatrixDiagonal(grids);
+                
+                for (int i=0;i<downright.length;i++){
+                    char[] theGrid = downright[i].toCharArray();
+                    //System.out.println("grid= " + String.valueOf(theGrid));
+                    int rtemp = StringMatch(theGrid,theWord);
+                    while (rtemp!=-1) {
+                        rtemp = StringMatch(theGrid,theWord);
+                        if (rtemp==-1)
+                            break;
+                        theGrid = String.valueOf(theGrid).substring(rtemp+1).toCharArray();
+                        //System.out.println("grid= " + String.valueOf(theGrid));
                         counter++;
                     } 
                 }
